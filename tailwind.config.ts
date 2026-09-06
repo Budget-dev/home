@@ -10,9 +10,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['"Google Sans"', 'var(--font-body-fallback)', 'sans-serif'],
-        sans: ['"Google Sans"', 'var(--font-body-fallback)', 'sans-serif'],
-        headline: ['"Google Sans"', 'var(--font-body-fallback)', 'sans-serif'],
+        body: ['var(--font-oswald)', 'Oswald', 'sans-serif'],
+        sans: ['var(--font-oswald)', 'Oswald', 'sans-serif'],
+        headline: ['var(--font-oswald)', 'Oswald', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {

@@ -25,9 +25,9 @@ export const TimelineContent: React.FC<TimelineContentProps> = ({
   children,
   ...props
 }) => {
-  const Component = typeof as === "string" 
-    ? (motion[as as keyof typeof motion] || motion.div)
-    : motion(as);
+  const Component: any = typeof as === "string" 
+    ? ((motion as any)[as] || motion.div)
+    : (typeof (motion as any).create === "function" ? (motion as any).create(as) : (motion as any)(as));
 
   const defaultVariants = {
     hidden: { opacity: 0, y: 20 },

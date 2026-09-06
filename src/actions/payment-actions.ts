@@ -3,13 +3,28 @@
 import Razorpay from 'razorpay';
 import crypto from 'crypto';
 
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID || '',
-  key_secret: process.env.RAZORPAY_KEY_SECRET || '',
-});
+let razorpayClient: Razorpay | null = null;
+
+function getRazorpay(): Razorpay | null {
+  const key_id = process.env.RAZORPAY_KEY_ID;
+  const key_secret = process.env.RAZORPAY_KEY_SECRET;
+  if (!key_id || !key_secret) {
+    return null;
+  }
+  if (!razorpayClient) {
+    razorpayClient = new Razorpay({ key_id, key_secret });
+  }
+  return razorpayClient;
+}
 
 export async function createRazorpayOrder(amount: number) {
   try {
+    const razorpay = getRazorpay();
+    if (!razorpay) {
+      console.error('Razorpay API keys (RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET) are missing from environment');
+      return { success: false, error: 'Payment gateway is currently unconfigured. Please configure Razorpay keys.' };
+    }
+
     const options = {
       amount: Math.round(amount * 100), // amount in the smallest currency unit (paise)
       currency: 'INR',
@@ -20,7 +35,7 @@ export async function createRazorpayOrder(amount: number) {
     return { success: true, order };
   } catch (error) {
     console.error('Razorpay Order Creation Error:', error);
-    return { success: false, error: 'Failed to create order' };
+    return { success: false, error: error instanceof Error ? error.message : 'Failed to create order' };
   }
 }
 
@@ -30,9 +45,13 @@ export async function verifyRazorpayPayment(
   signature: string
 ) {
   try {
+    const secret = process.env.RAZORPAY_KEY_SECRET;
+    if (!secret) {
+      return { success: false, error: 'Payment verification secret is missing' };
+    }
     const text = `${orderId}|${paymentId}`;
     const generated_signature = crypto
-      .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET || '')
+      .createHmac('sha256', secret)
       .update(text)
       .digest('hex');
 
@@ -43,6 +62,6 @@ export async function verifyRazorpayPayment(
     }
   } catch (error) {
     console.error('Razorpay Verification Error:', error);
-    return { success: false, error: 'Verification failed' };
+    return { success: false, error: error instanceof Error ? error.message : 'Verification failed' };
   }
 }

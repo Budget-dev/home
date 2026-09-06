@@ -1,17 +1,23 @@
-import type {Metadata} from 'next';
-import { Plus_Jakarta_Sans } from 'next/font/google';
+import type { Metadata } from 'next';
+import { Oswald } from 'next/font/google';
 import './globals.css';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { WhatsAppButton } from '@/components/vivaan/WhatsAppButton';
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const oswald = Oswald({
   subsets: ['latin'],
-  variable: '--font-body-fallback',
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-oswald',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: 'Vivaan Farms — Pure A2 Ghee & Farm Goods',
-  description: 'Pure Farm Goods from Gujarat. Bilona Method A2 Gir Cow Ghee, Cold Pressed Oils and Superfoods.',
+  title: 'Vivaan Farms',
+  description: 'Pure A2 Gir Cow Bilona Ghee & Organic Goods from Gujarat',
+  openGraph: {
+    title: 'Vivaan Farms',
+    description: 'Pure A2 Gir Cow Bilona Ghee & Organic Goods from Gujarat',
+  },
   icons: {
     icon: 'https://i.ibb.co/FqCKvSVb/Group-66-1-removebg-preview.png',
   },
@@ -23,11 +29,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${plusJakartaSans.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${oswald.variable}`} suppressHydrationWarning>
       <head>
         <link rel="icon" href="https://i.ibb.co/FqCKvSVb/Group-66-1-removebg-preview.png" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-        <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/google-sans" />
       </head>
       <body className="font-sans antialiased" suppressHydrationWarning>
         <FirebaseClientProvider>

@@ -93,7 +93,7 @@ export const CartSidebar: React.FC<CartSidebarProps> = ({ isOpen, onClose, cart,
                 <div className="absolute inset-0 bg-[#FBF6E5] rounded-full scale-[0.85]"></div>
                 <div className="relative w-24 h-24">
                   <Image 
-                    src="https://vivanfa.sirv.com/ChatGPT%20Image%20May%208%2C%202026%2C%2012_02_33%20AM.png" 
+                    src="/empty-cart.png" 
                     alt="Empty Cart" 
                     fill 
                     className="object-contain"

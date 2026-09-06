@@ -110,7 +110,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCart, cartCount, onFilter,
             {/* Mobile Logo */}
             <div className="md:hidden w-32 h-10 relative">
               <Image 
-                src="https://vivanfa.sirv.com/ChatGPT%20Image%20May%207%2C%202026%2C%2011_32_34%20PM.png"
+                src="/mobile-logo.png"
                 alt="vivaan farms"
                 fill
                 className="object-contain"
@@ -283,7 +283,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCart, cartCount, onFilter,
                 {/* Mobile Menu Brand Signature */}
                 <div className="w-36 h-10 relative brightness-0 invert">
                    <Image 
-                    src="https://vivanfa.sirv.com/ChatGPT%20Image%20May%207%2C%202026%2C%2011_32_34%20PM.png"
+                    src="/mobile-logo.png"
                     alt="vivaan farms"
                     fill
                     className="object-contain object-left"

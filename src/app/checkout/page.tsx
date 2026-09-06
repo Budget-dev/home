@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ArrowRight, ShoppingBag, Coins, ChevronLeft, MapPin, Truck, Ticket, CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
+import { cn } from '@/lib/utils';
 import { useUser, useFirestore, useCollection, useDoc, useMemoFirebase } from '@/firebase';
 import { collection, doc, query, where, getDocs } from 'firebase/firestore';
 import { UserProfile, UniversalCoupon } from '@/types';

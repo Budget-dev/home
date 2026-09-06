@@ -7,18 +7,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 const HERO_BANNERS = [
   {
     id: 'banner-1',
-    url: 'https://vivanfa.sirv.com/ChatGPT%20Image%20Jul%2031%2C%202026%2C%2011_49_21%20PM.png',
-    alt: 'Vivaan Farms Natural Banner 1'
+    url: '/banners/hero-banner-main.png',
+    alt: 'Vivaan Farms - Pure A2 Gir Cow Bilona Ghee & Natural Farm Goods'
   },
   {
     id: 'banner-2',
-    url: 'https://vivanfa.sirv.com/ChatGPT%20Image%20Jul%2031%2C%202026%2C%2011_54_32%20PM.png',
-    alt: 'Vivaan Farms Natural Banner 2'
+    url: '/banners/hero-banner-ghee.jpg',
+    alt: 'Vivaan Farms - Traditional Vedic Bilona Method A2 Ghee'
   },
   {
     id: 'banner-3',
-    url: 'https://vivanfa.sirv.com/ChatGPT%20Image%20Aug%201%2C%202026%2C%2012_03_41%20AM.png',
-    alt: 'Vivaan Farms Natural Banner 3'
+    url: '/banners/hero-banner-farm.jpg',
+    alt: 'Vivaan Farms - Authentic Organic Farm in Gujarat'
   }
 ];
 

@@ -29,10 +29,17 @@ export function FirebaseErrorListener() {
     };
   }, []);
 
-  // On re-render, if an error exists in state, throw it.
-  if (error) {
-    throw error;
-  }
+  // Log the error safely without bringing down the entire React application tree
+  useEffect(() => {
+    if (error) {
+      console.error('[Firebase Permission/Operation Error]:', {
+        message: error.message,
+        path: error.request?.path,
+        operation: error.request?.method,
+        auth: error.request?.auth,
+      });
+    }
+  }, [error]);
 
   // This component renders nothing.
   return null;

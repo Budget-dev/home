@@ -140,9 +140,12 @@ export default function ProductDetailsPage() {
   }
 
   const currentVar = product.vars.find((v: any) => v.s === selectedSize) || product.vars[0];
-  const displayPrice = currentVar.p;
-  const mrp = product.mrpPrice > displayPrice ? product.mrpPrice : 0;
-  const discountPercent = mrp > displayPrice ? Math.round(((mrp - displayPrice) / mrp) * 100) : 0;
+  const displayPrice = currentVar?.p || product.price || 0;
+  const productMrp = product.mrpPrice ?? product.mrp ?? 0;
+  const currentVarMrp = currentVar?.mrp ?? 0;
+  const rawMrp = currentVarMrp > displayPrice ? currentVarMrp : productMrp;
+  const mrp: number = rawMrp > displayPrice ? rawMrp : 0;
+  const discountPercent: number = mrp > displayPrice ? Math.round(((mrp - displayPrice) / mrp) * 100) : 0;
   const isWishlisted = isInWishlist(product.id);
 
   const galleryImages = (product.imageUrls && product.imageUrls.length > 0) 
@@ -210,7 +213,7 @@ export default function ProductDetailsPage() {
               {/* Action Buttons Floating on top-right */}
               <div className="absolute top-2.5 right-2.5 z-10 flex items-center gap-1.5">
                 <button 
-                  onClick={() => toggleWishlist(product)}
+                  onClick={() => toggleWishlist(product.id)}
                   className="w-8 h-8 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center shadow-xs hover:bg-white text-gray-700 hover:text-red-500 transition-all"
                   title="Wishlist"
                 >
@@ -305,14 +308,14 @@ export default function ProductDetailsPage() {
               <div className="flex flex-wrap items-center gap-2 mt-1.5">
                 <div className="flex items-center gap-1 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-lg">
                   <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-                  <span className="text-xs font-black text-amber-900">{product.rat}</span>
+                  <span className="text-xs font-black text-amber-900">{product.rating ?? product.rat ?? 4.9}</span>
                 </div>
                 <span className="text-xs font-bold text-[#7A6848]">
-                  ({product.revs || 120} reviews)
+                  ({product.reviewCount ?? product.revs ?? 120} reviews)
                 </span>
                 <span className="text-gray-300">|</span>
                 <span className="text-[11px] font-bold text-secondary flex items-center gap-1">
-                  🔥 {product.sold || '1.2k+'} units sold
+                  🔥 {product.soldCountLabel ?? product.sold ?? '1.2k+'} units sold
                 </span>
               </div>
             </div>

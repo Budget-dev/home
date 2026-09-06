@@ -72,10 +72,13 @@ const naturalLanguageProductSearchFlow = ai.defineFlow(
     inputSchema: NaturalLanguageProductSearchInputSchema,
     outputSchema: NaturalLanguageProductSearchOutputSchema,
   },
-  async (input) => {
+  async (input): Promise<NaturalLanguageProductSearchOutput> => {
     try {
       const { output } = await naturalLanguageProductSearchPrompt(input);
-      return output || { categories: ['all'] };
+      if (output && Array.isArray(output.categories) && output.categories.length > 0) {
+        return output;
+      }
+      return { categories: ['all'] };
     } catch (err) {
       console.warn("AI Search failed, falling back to basic matching:", err instanceof Error ? err.message : String(err));
       const queryLower = (input.query || '').toLowerCase();
